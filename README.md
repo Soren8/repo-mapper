@@ -42,6 +42,12 @@ The application can be configured via **command-line arguments** or by modifying
      ```bash
      python cli.py --api_key YOUR_API_KEY
      ```
+   - The script will:
+     - Display the number of files found.
+     - Ask for confirmation before proceeding with summarization.
+     - Ask for confirmation before sending each API request.
+     - Print progress updates to stdout.
+     - Save summaries and the final overview to the specified output directory.
    - To summarize a specific repository:
      ```bash
      python cli.py /path/to/repo --api_key YOUR_API_KEY

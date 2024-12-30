@@ -18,6 +18,12 @@ def generate_summary(file_content, llm_endpoint, api_key=None):
         "messages": [{"role": "user", "content": prompt}]
     }
     
+    # Ask for confirmation before sending the API request
+    proceed = input(f"Send API request for summarization? (y/n): ").strip().lower()
+    if proceed != "y":
+        print("API request canceled.")
+        return "No summary generated (API request canceled)."
+    
     response = requests.post(
         llm_endpoint,
         headers=headers,
