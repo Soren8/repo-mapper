@@ -1,14 +1,18 @@
 import requests
 import json
 
-def generate_summary(file_content, llm_endpoint):
+def generate_summary(file_content, llm_endpoint, api_key=None):
     """Generate a summary for a file using the LLM."""
     prompt = f"Summarize the following code file:\n\n{file_content}\n\n" \
              "Provide a Markdown summary with sections: Purpose, Key Functions, Complete Function List, Uses, Used By."
     
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    
     response = requests.post(
         llm_endpoint,
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         data=json.dumps({"prompt": prompt})
     )
     

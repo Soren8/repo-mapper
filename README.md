@@ -31,6 +31,7 @@ The application can be configured via **command-line arguments** or by modifying
 | `--llm_endpoint`    | LLM endpoint for summarization.                                             | `openrouter/deepseek/deepseek-chat`    |
 | `--output_dir`      | Directory to store summary Markdown files.                                  | `summaries`                            |
 | `--skip_extensions` | File extensions to skip (e.g., binary files, images).                       | `.bin`, `.png`, `.jpg`                 |
+| `--api_key`         | API key for the LLM endpoint.                                               | None                                   |
 
 ---
 
@@ -39,11 +40,11 @@ The application can be configured via **command-line arguments** or by modifying
 1. **Run the Script**:
    - To summarize the repository in the current directory:
      ```bash
-     python cli.py
+     python cli.py --api_key YOUR_API_KEY
      ```
    - To summarize a specific repository:
      ```bash
-     python cli.py /path/to/repo
+     python cli.py /path/to/repo --api_key YOUR_API_KEY
      ```
 
 2. **Output**:
@@ -53,13 +54,13 @@ The application can be configured via **command-line arguments** or by modifying
 3. **Custom LLM Endpoint**:
    If you want to use a different LLM endpoint (e.g., Gemini), specify it with the `--llm_endpoint` argument:
    ```bash
-   python cli.py /path/to/repo --llm_endpoint your_custom_endpoint
+   python cli.py /path/to/repo --llm_endpoint your_custom_endpoint --api_key YOUR_API_KEY
    ```
 
 4. **Skipping Files**:
    To skip additional file extensions, specify them with the `--skip_extensions` argument:
    ```bash
-   python cli.py /path/to/repo --skip_extensions .bin .png .jpg .mp4
+   python cli.py /path/to/repo --skip_extensions .bin .png .jpg .mp4 --api_key YOUR_API_KEY
    ```
 
 ---
