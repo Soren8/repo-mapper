@@ -1,7 +1,7 @@
 import requests
 import json
 
-def generate_summary(file_content, llm_endpoint, api_key=None):
+def generate_summary(file_content, llm_endpoint, api_key=None, llm_model="deepseek/deepseek-chat"):
     """Generate a summary for a file using the LLM."""
     prompt = f"Summarize the following code file:\n\n{file_content}\n\n" \
              "Provide a Markdown summary with sections: Purpose, Key Functions, Complete Function List, Uses, Used By.\n\n" \
@@ -15,7 +15,7 @@ def generate_summary(file_content, llm_endpoint, api_key=None):
     }
     
     payload = {
-        "model": "deepseek/deepseek-chat",  # Correct model format: provider/model
+        "model": llm_model,  # Use the specified LLM model
         "messages": [{"role": "user", "content": prompt}]
     }
     
