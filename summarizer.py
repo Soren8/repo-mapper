@@ -26,7 +26,7 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
         print(f"Summary saved for {file_path}")
     
     print("Generating repository overview...")
-    overview = generate_repo_overview(output_dir, llm_endpoint)
+    overview = generate_repo_overview(output_dir, llm_endpoint, api_key)
     overview_path = os.path.join(output_dir, "repo_overview.md")
     
     with open(overview_path, "w") as f:

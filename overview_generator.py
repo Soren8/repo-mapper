@@ -1,7 +1,7 @@
 import os
 from llm_client import generate_summary
 
-def generate_repo_overview(summary_dir, llm_endpoint):
+def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
     """Generate a high-level overview of the repository."""
     summaries = []
     for summary_file in os.listdir(summary_dir):
@@ -13,4 +13,4 @@ def generate_repo_overview(summary_dir, llm_endpoint):
     prompt = f"Based on the following file summaries, generate a high-level overview of the repository:\n\n{combined_summaries}\n\n" \
              "Include sections for Intent, Design Patterns, Major Data Flows, and Inter-File Relationships."
     
-    return generate_summary(prompt, llm_endpoint)
+    return generate_summary(prompt, llm_endpoint, api_key)
