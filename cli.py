@@ -8,7 +8,7 @@ def main():
     parser.add_argument("--llm_endpoint", default="https://openrouter.ai/api/v1/chat/completions", help="LLM endpoint for summarization")
     parser.add_argument("--llm_model", default="deepseek/deepseek-chat", help="LLM model to use (default: deepseek/deepseek-chat)")
     parser.add_argument("--output_dir", default="summaries", help="Directory to store summary Markdown files")
-    parser.add_argument("--skip_extensions", nargs="*", default=[".bin", ".png", ".jpg"], help="File extensions to skip")
+    parser.add_argument("--skip_extensions", nargs="*", default=[".bin", ".png", ".jpg", ".svg"], help="File extensions to skip")  # Added .svg
     parser.add_argument("--api_key", help="API key for the LLM endpoint")
     args = parser.parse_args()
 
