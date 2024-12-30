@@ -1,3 +1,4 @@
+import os
 from scanner import scan_repository
 from llm_client import generate_summary
 from storage import save_summary
