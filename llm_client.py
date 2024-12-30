@@ -22,7 +22,7 @@ def generate_summary(file_content, llm_endpoint, api_key=None):
     proceed = input(f"Send API request for summarization? (y/n): ").strip().lower()
     if proceed != "y":
         print("API request canceled.")
-        return "No summary generated (API request canceled)."
+        return None  # Return None to indicate cancellation
     
     response = requests.post(
         llm_endpoint,

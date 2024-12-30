@@ -22,8 +22,11 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
             file_content = f.read()
         
         summary = generate_summary(file_content, llm_endpoint, api_key)
-        save_summary(file_path, summary, output_dir)
-        print(f"Summary saved for {file_path}")
+        if summary is not None:  # Only save if the summary is not None
+            save_summary(file_path, summary, output_dir)
+            print(f"Summary saved for {file_path}")
+        else:
+            print(f"Skipping summary for {file_path} (API request canceled)")
     
     print("Generating repository overview...")
     overview = generate_repo_overview(output_dir, llm_endpoint, api_key)
