@@ -6,22 +6,25 @@ def generate_summary(file_content, llm_endpoint, api_key=None):
     prompt = f"Summarize the following code file:\n\n{file_content}\n\n" \
              "Provide a Markdown summary with sections: Purpose, Key Functions, Complete Function List, Uses, Used By."
     
-    headers = {"Content-Type": "application/json"}
-    if api_key:
-        headers["Authorization"] = f"Bearer {api_key}"
+    headers = {
+        "Authorization": f"Bearer {api_key}",  # Required
+        "Content-Type": "application/json",   # Required
+        "HTTP-Referer": "https://github.com/yourusername/repo-summarizer",  # Optional, for OpenRouter rankings
+        "X-Title": "Repo Summarizer"  # Optional, for OpenRouter rankings
+    }
     
     payload = {
-        "model": "deepseek-chat",  # Specify the model
+        "model": "deepseek/deepseek-chat",  # Correct model format: provider/model
         "messages": [{"role": "user", "content": prompt}]
     }
     
     response = requests.post(
         llm_endpoint,
         headers=headers,
-        data=json.dumps(payload)
+        json=payload  # Use `json` instead of `data=json.dumps(payload)`
     )
     
     if response.status_code == 200:
         return response.json().get("choices", [{}])[0].get("message", {}).get("content", "No summary generated.")
     else:
-        raise Exception(f"LLM API call failed: {response.status_code}")
+        raise Exception(f"LLM API call failed: {response.status_code}, {response.text}")
