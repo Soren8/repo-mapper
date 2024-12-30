@@ -4,13 +4,21 @@ from llm_client import generate_summary
 def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
     """Generate a high-level overview of the repository."""
     summaries = []
+    
+    # Include the contents of README.md
+    readme_path = os.path.join(os.path.dirname(summary_dir), "README.md")
+    if os.path.exists(readme_path):
+        with open(readme_path, "r") as f:
+            summaries.append(f"# README.md\n\n{f.read()}")
+    
+    # Include per-file summaries
     for summary_file in os.listdir(summary_dir):
         if summary_file.endswith("_summary.md"):
             with open(os.path.join(summary_dir, summary_file), "r") as f:
                 summaries.append(f.read())
     
     combined_summaries = "\n\n".join(summaries)
-    prompt = f"Based on the following file summaries, generate a high-level overview of the repository:\n\n{combined_summaries}\n\n" \
+    prompt = f"Based on the following file summaries and README.md, generate a high-level overview of the repository:\n\n{combined_summaries}\n\n" \
              "Include sections for Intent, Design Patterns, Major Data Flows, and Inter-File Relationships."
     
     return generate_summary(prompt, llm_endpoint, api_key)
