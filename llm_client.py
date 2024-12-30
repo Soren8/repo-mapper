@@ -4,7 +4,8 @@ import json
 def generate_summary(file_content, llm_endpoint, api_key=None):
     """Generate a summary for a file using the LLM."""
     prompt = f"Summarize the following code file:\n\n{file_content}\n\n" \
-             "Provide a Markdown summary with sections: Purpose, Key Functions, Complete Function List, Uses, Used By."
+             "Provide a Markdown summary with sections: Purpose, Key Functions, Complete Function List, Uses, Used By.\n\n" \
+             "**Note**: The 'Complete Function List' should only include functions defined in this file, not functions it calls from other modules."
     
     headers = {
         "Authorization": f"Bearer {api_key}",  # Required
