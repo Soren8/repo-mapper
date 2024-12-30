@@ -31,7 +31,7 @@ The application can be configured via **command-line arguments** or by modifying
 | `--llm_endpoint`    | LLM endpoint for summarization.                                             | `https://openrouter.ai/api/v1/chat/completions`    |
 | `--llm_model`       | LLM model to use for summarization.                                         | `deepseek/deepseek-chat`               |
 | `--output_dir`      | Directory to store summary Markdown files.                                  | `summaries`                            |
-| `--skip_extensions` | File extensions to skip (e.g., binary files, images).                       | `.bin`, `.png`, `.jpg`                 |
+| `--skip_extensions` | File extensions to skip (e.g., binary files, images).                       | `.bin`, `.png`, `.jpg`, `.svg`         |
 | `--api_key`         | API key for the LLM endpoint.                                               | None                                   |
 
 ---
@@ -67,7 +67,7 @@ The application can be configured via **command-line arguments** or by modifying
 4. **Skipping Files**:
    To skip additional file extensions, specify them with the `--skip_extensions` argument:
    ```bash
-   python cli.py /path/to/repo --skip_extensions .bin .png .jpg .mp4 --api_key YOUR_API_KEY
+   python cli.py /path/to/repo --skip_extensions .bin .png .jpg .svg .mp4 --api_key YOUR_API_KEY
    ```
 
 ---
