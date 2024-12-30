@@ -15,7 +15,7 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
         print("Summarization canceled.")
         return
     
-    # Create a subdirectory named after the repository
+    # Create the full output path: summaries/<REPO_NAME>
     repo_name = os.path.basename(os.path.normpath(repo_path))
     repo_output_dir = os.path.join(output_dir, repo_name)
     os.makedirs(repo_output_dir, exist_ok=True)
