@@ -37,10 +37,14 @@ The application can be configured via **command-line arguments** or by modifying
 ## Usage
 
 1. **Run the Script**:
-   ```bash
-   python cli.py /path/to/repo
-   ```
-   Replace `/path/to/repo` with the path to your Git repository.
+   - To summarize the repository in the current directory:
+     ```bash
+     python cli.py
+     ```
+   - To summarize a specific repository:
+     ```bash
+     python cli.py /path/to/repo
+     ```
 
 2. **Output**:
    - Per-file summaries will be saved in the `summaries` directory (or the directory specified in `--output_dir`).
