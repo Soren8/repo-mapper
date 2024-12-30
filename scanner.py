@@ -20,8 +20,9 @@ def scan_repository(repo_path, skip_extensions):
         
         for file in files:
             file_path = os.path.join(root, file)
-            # Skip files with ignored extensions or in ignored paths
+            # Skip files with ignored extensions, in ignored paths, or starting with "."
             if (not any(file.endswith(ext) for ext in skip_extensions) and
-                not any(part in ignored_paths for part in file_path.split(os.sep))):
+                not any(part in ignored_paths for part in file_path.split(os.sep)) and
+                not file.startswith(".")):  # Ignore hidden files
                 relevant_files.append(file_path)
     return relevant_files
