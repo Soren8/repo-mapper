@@ -28,7 +28,7 @@ The application can be configured via **command-line arguments** or by modifying
 | Argument            | Description                                                                 | Default Value                          |
 |---------------------|-----------------------------------------------------------------------------|----------------------------------------|
 | `repo_path`         | Path to the Git repository to summarize. If not provided, the current directory is used. | Current directory (`os.getcwd()`)      |
-| `--llm_endpoint`    | LLM endpoint for summarization.                                             | `openrouter/deepseek/deepseek-chat`    |
+| `--llm_endpoint`    | LLM endpoint for summarization.                                             | `https://api.openrouter.ai/api/v1/chat/completions`    |
 | `--output_dir`      | Directory to store summary Markdown files.                                  | `summaries`                            |
 | `--skip_extensions` | File extensions to skip (e.g., binary files, images).                       | `.bin`, `.png`, `.jpg`                 |
 | `--api_key`         | API key for the LLM endpoint.                                               | None                                   |
