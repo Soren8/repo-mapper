@@ -15,6 +15,11 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
         print("Summarization canceled.")
         return
     
+    # Create a subdirectory named after the repository
+    repo_name = os.path.basename(os.path.normpath(repo_path))
+    repo_output_dir = os.path.join(output_dir, repo_name)
+    os.makedirs(repo_output_dir, exist_ok=True)
+    
     for i, file_path in enumerate(files, 1):
         print(f"Processing file {i}/{len(files)}: {file_path}")
         
@@ -23,18 +28,18 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
         
         summary = generate_summary(file_content, llm_endpoint, api_key)
         if summary is not None:  # Only save if the summary is not None
-            save_summary(file_path, summary, output_dir)
+            save_summary(file_path, summary, repo_output_dir)
             print(f"Summary saved for {file_path}")
         else:
             print(f"Skipping summary for {file_path} (API request canceled)")
     
     print("Generating repository overview...")
-    overview = generate_repo_overview(output_dir, llm_endpoint, api_key)
-    overview_path = os.path.join(output_dir, "repo_overview.md")
+    overview = generate_repo_overview(repo_output_dir, llm_endpoint, api_key)
+    overview_path = os.path.join(repo_output_dir, "repo_overview.md")
     
     with open(overview_path, "w") as f:
         f.write(overview)
     
-    print("Repository overview saved to repo_overview.md")
+    print(f"Repository overview saved to {overview_path}")
     print("\n--- Repository Overview ---")
     print(overview)
