@@ -23,8 +23,12 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
     for i, file_path in enumerate(files, 1):
         print(f"Processing file {i}/{len(files)}: {file_path}")
         
-        with open(file_path, "r") as f:
-            file_content = f.read()
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:  # Use utf-8 encoding
+                file_content = f.read()
+        except UnicodeDecodeError:
+            print(f"Skipping file {file_path} (unsupported encoding)")
+            continue
         
         summary = generate_summary(file_content, llm_endpoint, api_key, llm_model)
         if summary is not None:  # Only save if the summary is not None
@@ -37,7 +41,7 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
     overview = generate_repo_overview(repo_output_dir, llm_endpoint, api_key, llm_model)
     overview_path = os.path.join(repo_output_dir, "repo_overview.md")
     
-    with open(overview_path, "w") as f:
+    with open(overview_path, "w", encoding="utf-8") as f:  # Use utf-8 encoding
         f.write(overview)
     
     print(f"Repository overview saved to {overview_path}")

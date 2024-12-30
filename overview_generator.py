@@ -8,13 +8,13 @@ def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
     # Include the contents of README.md
     readme_path = os.path.join(os.path.dirname(summary_dir), "README.md")
     if os.path.exists(readme_path):
-        with open(readme_path, "r") as f:
+        with open(readme_path, "r", encoding="utf-8") as f:
             summaries.append(f"# README.md\n\n{f.read()}")
     
     # Include per-file summaries
     for summary_file in os.listdir(summary_dir):
         if summary_file.endswith("_summary.md"):
-            with open(os.path.join(summary_dir, summary_file), "r") as f:
+            with open(os.path.join(summary_dir, summary_file), "r", encoding="utf-8") as f:
                 summaries.append(f.read())
     
     combined_summaries = "\n\n".join(summaries)
