@@ -19,6 +19,7 @@ def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
     
     combined_summaries = "\n\n".join(summaries)
     prompt = f"Based on the following file summaries and README.md, generate a high-level overview of the repository:\n\n{combined_summaries}\n\n" \
-             "Include sections for Intent, Design Patterns, Major Data Flows, and Inter-File Relationships."
+             "Include sections for Intent, Design Patterns, Major Data Flows, and Inter-File Relationships.\n\n" \
+             "**Note**: Focus on high-level details. Do not include granular information like a complete function list. Instead, link to the individual summary files for more details."
     
     return generate_summary(prompt, llm_endpoint, api_key)
