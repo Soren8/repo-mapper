@@ -17,11 +17,12 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
         print(analysis)
         print("------------------------------------------")
     
-    # Ask for confirmation before proceeding
-    proceed = input("Proceed with summarization? (y/n): ").strip().lower()
-    if proceed != "y":
-        print("Summarization canceled.")
-        return
+    # Skip confirmation if --yes flag is set
+    if not yes:
+        proceed = input("Proceed with summarization? (y/n): ").strip().lower()
+        if proceed != "y":
+            print("Summarization canceled.")
+            return
     
     # Create the full output path: summaries/<REPO_NAME>
     repo_name = os.path.basename(os.path.normpath(repo_path))
