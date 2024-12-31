@@ -4,7 +4,7 @@ from llm_client import generate_summary
 from storage import save_summary
 from overview_generator import generate_repo_overview
 
-def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, api_key=None, llm_model="deepseek/deepseek-chat"):
+def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, api_key=None, llm_model="deepseek/deepseek-chat", yes=False):
     """Summarize all files in the repository and generate a final overview."""
     files = scan_repository(repo_path, skip_extensions)
     print(f"Found {len(files)} files to summarize in the repository.")
@@ -40,7 +40,7 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
             print(f"Skipping file {file_path} (unsupported encoding)")
             continue
         
-        summary = generate_summary(file_content, llm_endpoint, api_key, llm_model)
+        summary = generate_summary(file_content, llm_endpoint, api_key, llm_model, yes)
         if summary is not None:  # Only save if the summary is not None
             save_summary(file_path, summary, repo_output_dir)
             print(f"Summary saved for {file_path}")
