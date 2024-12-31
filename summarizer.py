@@ -9,6 +9,14 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
     files = scan_repository(repo_path, skip_extensions)
     print(f"Found {len(files)} files to summarize in the repository.")
     
+    # Analyze filenames before proceeding
+    print("Analyzing filenames to suggest important/unimportant files...")
+    analysis = analyze_filenames(files, llm_endpoint, api_key, llm_model, yes)
+    if analysis:
+        print("\n--- Suggested File Importance Analysis ---")
+        print(analysis)
+        print("------------------------------------------")
+    
     # Ask for confirmation before proceeding
     proceed = input("Proceed with summarization? (y/n): ").strip().lower()
     if proceed != "y":

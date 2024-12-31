@@ -1,6 +1,40 @@
 import requests
 import json
 
+def analyze_filenames(file_paths, llm_endpoint, api_key=None, llm_model="deepseek/deepseek-chat", yes=False):
+    """Analyze filenames and return a list of suggested important/unimportant files."""
+    prompt = f"Analyze the following list of file paths and suggest which files are likely important for understanding the repository's architecture and design. Return a list of file paths marked as 'important' or 'unimportant'. **Do not include any preamble or explanation in your response.**\n\nFile Paths:\n\n" + "\n".join(file_paths)
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://github.com/yourusername/repo-summarizer",
+        "X-Title": "Repo Summarizer"
+    }
+    
+    payload = {
+        "model": llm_model,
+        "messages": [{"role": "user", "content": prompt}]
+    }
+    
+    # Skip confirmation if --yes flag is set
+    if not yes:
+        proceed = input(f"Send API request for filename analysis? (y/n): ").strip().lower()
+        if proceed != "y":
+            print("Filename analysis canceled.")
+            return None
+    
+    response = requests.post(
+        llm_endpoint,
+        headers=headers,
+        json=payload
+    )
+    
+    if response.status_code == 200:
+        return response.json().get("choices", [{}])[0].get("message", {}).get("content", "No analysis generated.")
+    else:
+        raise Exception(f"LLM API call failed: {response.status_code}, {response.text}")
+
 def generate_summary(file_content, llm_endpoint, api_key=None, llm_model="deepseek/deepseek-chat", yes=False):
     """Generate a summary for a file using the LLM."""
     # Let the LLM determine if the file is a core code file
