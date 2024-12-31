@@ -1,6 +1,6 @@
 import os
 from scanner import scan_repository
-from llm_client import generate_summary
+from llm_client import generate_summary, analyze_filenames
 from storage import save_summary
 from overview_generator import generate_repo_overview
 
