@@ -4,7 +4,7 @@ import json
 def generate_summary(file_content, llm_endpoint, api_key=None, llm_model="deepseek/deepseek-chat", yes=False):
     """Generate a summary for a file using the LLM."""
     # Let the LLM determine if the file is a core code file
-    prompt = f"Analyze the following file content and determine if it is a core code file (e.g., Python, JavaScript, etc.). If it is a core code file, provide a Markdown summary with sections: Key Functions, Complete Function List, Uses, and Used By. If it is not a core code file, provide a very concise summary (1-2 sentences) describing its purpose and relevance. **Do not include any preamble or explanation in your response.**\n\nFile Content:\n\n{file_content}"
+    prompt = f"Analyze the following file content and determine if it is a core code file. If it is a core code file, provide a Markdown summary with sections: Key Functions, Complete Function List, Uses, and Used By. If it is not a core code file, provide a very concise summary (1-2 sentences) describing its purpose and relevance. **Do not include any preamble or explanation in your response.**\n\nFile Content:\n\n{file_content}"
     
     headers = {
         "Authorization": f"Bearer {api_key}",  # Required
