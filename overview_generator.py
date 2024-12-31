@@ -1,7 +1,7 @@
 import os
 from llm_client import generate_summary
 
-def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
+def generate_repo_overview(summary_dir, llm_endpoint, api_key=None, llm_model="deepseek/deepseek-chat"):
     """Generate a high-level overview of the repository."""
     summaries = []
     
@@ -22,4 +22,4 @@ def generate_repo_overview(summary_dir, llm_endpoint, api_key=None):
              "Include sections for Intent, Design Patterns, Major Data Flows, and Inter-File Relationships.\n\n" \
              "**Note**: Focus on high-level details. Do not include granular information like a complete function list. Instead, link to the individual summary files for more details."
     
-    return generate_summary(prompt, llm_endpoint, api_key)
+    return generate_summary(prompt, llm_endpoint, api_key, llm_model)
