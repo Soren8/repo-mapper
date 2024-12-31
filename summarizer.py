@@ -23,6 +23,16 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
     for i, file_path in enumerate(files, 1):
         print(f"Processing file {i}/{len(files)}: {file_path}")
         
+        # Check if summary already exists
+        relative_path = os.path.relpath(file_path, start=os.path.dirname(output_dir))
+        summary_dir = os.path.join(repo_output_dir, os.path.dirname(relative_path))
+        summary_filename = os.path.basename(file_path) + "_summary.md"
+        summary_path = os.path.join(summary_dir, summary_filename)
+        
+        if os.path.exists(summary_path):
+            print(f"Skipping {file_path} (summary already exists)")
+            continue
+        
         try:
             with open(file_path, "r", encoding="utf-8") as f:  # Use utf-8 encoding
                 file_content = f.read()
