@@ -5,6 +5,11 @@ def analyze_filenames(file_paths, llm_endpoint, api_key=None, llm_model="deepsee
     """Analyze filenames and return a list of suggested important/unimportant files."""
     prompt = f"Analyze the following list of file paths and suggest which files are likely important for understanding the repository's architecture and design. Return a list of file paths marked as 'important' or 'unimportant'. **Do not include any preamble or explanation in your response.**\n\nFile Paths:\n\n" + "\n".join(file_paths)
     
+    # Print the LLM query for debugging
+    print("\n--- LLM Query for Filename Analysis ---")
+    print(prompt)
+    print("--------------------------------------")
+    
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
