@@ -56,7 +56,7 @@ def summarize_repository(repo_path, llm_endpoint, output_dir, skip_extensions, a
             print(f"Skipping summary for {file_path} (API request canceled)")
     
     print("Generating repository overview...")
-    overview = generate_repo_overview(repo_output_dir, llm_endpoint, api_key, llm_model)
+    overview = generate_repo_overview(repo_output_dir, llm_endpoint, api_key, llm_model, yes)
     overview_path = os.path.join(repo_output_dir, "repo_overview.md")
     
     with open(overview_path, "w", encoding="utf-8") as f:  # Use utf-8 encoding
